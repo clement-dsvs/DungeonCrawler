@@ -24,13 +24,16 @@ if (NOT raylib_FOUND) # If there's none, fetch and build raylib
     endif()
 endif()
 
+add_subdirectory(libs/rlImGui)
+
 find_package(EnTT CONFIG REQUIRED)
 find_package(imgui CONFIG REQUIRED)
 
 # Our Project
 add_executable(${PROJECT_NAME} src/main.cpp)
 #set(raylib_VERBOSE 1)
-target_link_libraries(${PROJECT_NAME} raylib EnTT::EnTT imgui::imgui)
+target_include_directories(${PROJECT_NAME} PRIVATE libs/include)
+target_link_libraries(${PROJECT_NAME} raylib EnTT::EnTT imgui::imgui rlImGui)
 
 # Web Configurations
 if (${PLATFORM} STREQUAL "Web")
