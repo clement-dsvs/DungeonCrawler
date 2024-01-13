@@ -28,12 +28,17 @@ add_subdirectory(libs/rlImGui)
 
 find_package(EnTT CONFIG REQUIRED)
 find_package(imgui CONFIG REQUIRED)
+find_package(SQLite3 REQUIRED)
 
 # Our Project
-add_executable(${PROJECT_NAME} src/main.cpp)
+add_executable(${PROJECT_NAME} src/main.cpp
+        src/core/Logger.cpp
+        src/core/Logger.h
+        src/core/Game.cpp
+        src/core/Game.h)
 #set(raylib_VERBOSE 1)
 target_include_directories(${PROJECT_NAME} PRIVATE libs/include)
-target_link_libraries(${PROJECT_NAME} raylib EnTT::EnTT imgui::imgui rlImGui)
+target_link_libraries(${PROJECT_NAME} raylib EnTT::EnTT imgui::imgui rlImGui SQLite::SQLite3)
 
 # Web Configurations
 if (${PLATFORM} STREQUAL "Web")
