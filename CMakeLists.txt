@@ -35,9 +35,14 @@ add_executable(${PROJECT_NAME} src/main.cpp
         src/core/Logger.cpp
         src/core/Logger.h
         src/core/Game.cpp
-        src/core/Game.h)
+        src/core/Game.h
+        src/systems/DungeonSystem.cpp
+        src/systems/DungeonSystem.h
+        src/components/Model.h
+        src/components/Position.h
+        src/components/Size.h)
 #set(raylib_VERBOSE 1)
-target_include_directories(${PROJECT_NAME} PRIVATE libs/include)
+target_include_directories(${PROJECT_NAME} PRIVATE libs/include src)
 target_link_libraries(${PROJECT_NAME} raylib EnTT::EnTT imgui::imgui rlImGui SQLite::SQLite3)
 
 # Web Configurations
