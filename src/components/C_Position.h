@@ -7,8 +7,6 @@
 
 #include "raylib.h"
 
-namespace components {
-    typedef struct Position : ::Vector3 {} Position;
-}
+typedef struct C_Position : ::Vector3 {} C_Position;
 
 #endif //POSITION_H

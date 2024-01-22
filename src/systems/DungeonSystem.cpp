@@ -4,24 +4,29 @@
 
 #include "DungeonSystem.h"
 
+#include <iostream>
 #include <random>
 #include <entt/entity/registry.hpp>
+#include <entt/resource/cache.hpp>
 
 #include "raymath.h"
-#include "components/Position.h"
-#include "components/Size.h"
+#include "components/C_Model.h"
+#include "components/C_Position.h"
 
 void DungeonSystem::o_vInit(int nb_rooms, entt::registry& registry) {
     std::random_device dev;
     std::mt19937 rng(dev());
-    std::uniform_int_distribution<std::mt19937::result_type> dist_size(1, 6); // Taille Mini/Maxi
     std::uniform_int_distribution<std::mt19937::result_type> dist_pos(-15, 15); // Ecartement relatif au 0, 0
+    std::uniform_int_distribution<std::mt19937::result_type> dist_size(1, 6); // Taille Mini/Maxi
 
     std::vector<Cube> rooms;
 
-    for (int i = 0; i < nb_rooms; i++) {
+    for (int i = 0; i <= nb_rooms * 3; i++) {
         const Vector3 l_size {static_cast<float>(dist_size(rng)), 1, static_cast<float>(dist_size(rng))};
-        Vector3 l_position {static_cast<float>(dist_pos(rng)), 0, static_cast<float>(dist_pos(rng))};
+        Vector3 l_position {};
+        l_position.x = int(dist_pos(rng));
+        l_position.y = 0;
+        l_position.z = int(dist_pos(rng));
         rooms.push_back({l_position, l_size});
     }
 
@@ -50,6 +55,23 @@ void DungeonSystem::o_vInit(int nb_rooms, entt::registry& registry) {
         return (room.size.x * room.size.z < average_size * 1.3);
     });
 
+    for (const Cube& room : rooms) {
+        for (int x = 0; x < room.size.x; x ++) {
+            for (int z = 0; z < room.size.z; z++) {
+                auto l_model = LoadModel("/Users/clement/code/cpp/DungeonCrawler/assets/models/world/floor_wood_large.gltf.glb");
+                C_Position l_position{};
+                l_position.x = room.position.x * 3 + (x * 4);
+                l_position.y = room.position.y;
+                l_position.z = room.position.z * 3 + (z * 4);
+
+                std::cout << l_position.x << " | " << l_position.y << " | " << l_position.z << "\n";
+
+                entt::entity l_entity = registry.create();
+                registry.emplace<C_Model>(l_entity, l_model);
+                registry.emplace<C_Position>(l_entity, l_position);
+            }
+        }
+    }
 }
 
 Vector2 DungeonSystem::o_ComputeSeparationVector(const Cube& room, std::vector<Cube>& room_list) {

@@ -6,8 +6,6 @@
 #define MODEL_H
 #include "raylib.h"
 
-namespace components {
-    typedef struct Model : ::Model {} Model;
-}
+typedef struct C_Model : ::Model {} C_Model;
 
 #endif //MODEL_H

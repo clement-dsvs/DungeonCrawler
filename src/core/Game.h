@@ -7,6 +7,8 @@
 
 #include <entt/entity/registry.hpp>
 
+#include "raylib.h"
+
 
 class Game {
 
@@ -35,8 +37,10 @@ private:
      */
     void o_vDraw();
 
-private:
     entt::registry m_registry;
+
+    Camera3D m_camera;
+
 
 };
 

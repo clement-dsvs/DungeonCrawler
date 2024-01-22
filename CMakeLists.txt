@@ -18,15 +18,15 @@ add_subdirectory(libs/rlImGui)
 
 # Our Project
 add_executable(${PROJECT_NAME} src/main.cpp
-        src/core/Logger.cpp
-        src/core/Logger.h
         src/core/Game.cpp
         src/core/Game.h
         src/systems/DungeonSystem.cpp
         src/systems/DungeonSystem.h
-        src/components/Model.h
-        src/components/Position.h
-        src/components/Size.h)
+        src/components/C_Model.h
+        src/components/C_Position.h
+        src/components/Size.h
+        src/systems/ModelSystem.cpp
+        src/systems/ModelSystem.h)
 #set(raylib_VERBOSE 1)
 target_include_directories(${PROJECT_NAME} PRIVATE src libs/include third-party/imgui) #
 target_link_libraries(${PROJECT_NAME} raylib EnTT::EnTT imgui rlImGui) #SQLite::SQLite3

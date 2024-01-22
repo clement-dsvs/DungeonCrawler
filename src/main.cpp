@@ -2,7 +2,6 @@
 #include <exception>
 
 #include "core/Game.h"
-#include "core/Logger.h"
 
 int main()
 {
@@ -13,7 +12,6 @@ int main()
         return EXIT_SUCCESS;
     }
     catch (const std::exception& exception) {
-        Logger::Error(exception.what());
         return EXIT_FAILURE;
     }
 }

@@ -8,6 +8,9 @@
 #include <raylib.h>
 #include <rlImGui/rlImGui.h>
 
+#include "systems/DungeonSystem.h"
+#include "systems/ModelSystem.h"
+
 Game::Game() {
     m_registry = entt::registry();
 }
@@ -18,6 +21,16 @@ void Game::o_vInit() {
     InitWindow(1280, 800, "Dungeon Crawler");
     SetTargetFPS(144);
     rlImGuiSetup(true);
+    DisableCursor();
+
+    m_camera = Camera3D{};
+    m_camera.position = {10, 10, 10};
+    m_camera.target = {0, 0, 0};
+    m_camera.up = {0, 1, 0};
+    m_camera.fovy = 45.f;
+    m_camera.projection = CAMERA_PERSPECTIVE;
+
+    DungeonSystem::o_vInit(10, m_registry);
 }
 
 void Game::o_vStart() {
@@ -30,6 +43,7 @@ void Game::o_vStart() {
 
 void Game::o_vUpdate(float delta) {
     // Update stuff
+    UpdateCamera(&m_camera, CAMERA_THIRD_PERSON);
 }
 
 void Game::o_vDraw() {
@@ -38,6 +52,10 @@ void Game::o_vDraw() {
 
     {
         // Draw stuff
+
+        BeginMode3D(m_camera);
+        ModelSystem::Draw(m_registry);
+        EndMode3D();
 
         //TODO: à mettre dans le système ImGui
         rlImGuiBegin();
