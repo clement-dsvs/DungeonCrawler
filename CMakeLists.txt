@@ -7,10 +7,10 @@ set(CMAKE_CXX_STANDARD 23)
 
 # Dependencies
 add_subdirectory(third-party/raylib)
-# add_subdirectory(third-party/imgui)
+include(cmake/CMakeLists.txt)
 add_subdirectory(third-party/entt)
 
-# add_subdirectory(libs/rlImGui)
+add_subdirectory(libs/rlImGui)
 
 # find_package(EnTT CONFIG REQUIRED)
 # find_package(imgui CONFIG REQUIRED)
@@ -28,8 +28,8 @@ add_executable(${PROJECT_NAME} src/main.cpp
         src/components/Position.h
         src/components/Size.h)
 #set(raylib_VERBOSE 1)
-target_include_directories(${PROJECT_NAME} PRIVATE src) # libs/include
-target_link_libraries(${PROJECT_NAME} raylib EnTT::EnTT) # imgui::imgui rlImGui SQLite::SQLite3
+target_include_directories(${PROJECT_NAME} PRIVATE src libs/include third-party/imgui) #
+target_link_libraries(${PROJECT_NAME} raylib EnTT::EnTT imgui rlImGui) #SQLite::SQLite3
 
 # Web Configurations
 if (${PLATFORM} STREQUAL "Web")
