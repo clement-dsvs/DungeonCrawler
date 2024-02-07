@@ -22,7 +22,11 @@ void DungeonSystem::o_vInit(int nb_rooms, entt::registry& registry) {
     std::vector<Cube> rooms;
 
     for (int i = 0; i <= nb_rooms * 3; i++) {
-        const Vector3 l_size {static_cast<float>(dist_size(rng)), 1, static_cast<float>(dist_size(rng))};
+        Vector3 l_size {};
+        l_size.x = int(dist_size(rng));
+        l_size.y = 0;
+        l_size.z = int(dist_size(rng));
+
         Vector3 l_position {};
         l_position.x = int(dist_pos(rng));
         l_position.y = 0;

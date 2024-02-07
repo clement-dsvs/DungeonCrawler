@@ -62,6 +62,8 @@ void Game::o_vDraw() {
 
         rlImGuiEnd();
 
+        DrawFPS(10, 10);
+
     }
 
     EndDrawing();
