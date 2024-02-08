@@ -1,9 +1,9 @@
 [submodule "third-party/raylib"]
-	path = third-party/raylib
+	path = external/raylib
 	url = https://github.com/raysan5/raylib.git
 [submodule "third-party/entt"]
-	path = third-party/entt
+	path = external/entt
 	url = https://github.com/skypjack/entt.git
 [submodule "third-party/imgui"]
-	path = third-party/imgui
+	path = external/imgui
 	url = https://github.com/ocornut/imgui.git
