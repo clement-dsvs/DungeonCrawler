@@ -6,9 +6,9 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set(CMAKE_CXX_STANDARD 23)
 
 # Dependencies
-add_subdirectory(third-party/raylib)
+add_subdirectory(external/raylib)
 include(cmake/FindImgui.txt)
-add_subdirectory(third-party/entt)
+add_subdirectory(external/entt)
 
 add_subdirectory(libs/rlImGui)
 
