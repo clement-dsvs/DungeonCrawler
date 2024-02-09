@@ -16,7 +16,7 @@
 void DungeonSystem::o_vInit(int nb_rooms, entt::registry& registry) {
     std::random_device dev;
     std::mt19937 rng(dev());
-    std::uniform_int_distribution<std::mt19937::result_type> dist_pos(-15, 15); // Ecartement relatif au 0, 0
+    std::uniform_int_distribution<std::mt19937::result_type> dist_pos(0, 15); // Ecartement relatif au 0, 0
     std::uniform_int_distribution<std::mt19937::result_type> dist_size(1, 6); // Taille Mini/Maxi
 
     std::vector<Cube> rooms;
@@ -28,9 +28,9 @@ void DungeonSystem::o_vInit(int nb_rooms, entt::registry& registry) {
         l_size.z = int(dist_size(rng));
 
         Vector3 l_position {};
-        l_position.x = int(dist_pos(rng));
+        l_position.x = int(dist_pos(rng)) - 15;
         l_position.y = 0;
-        l_position.z = int(dist_pos(rng));
+        l_position.z = int(dist_pos(rng)) - 15;
         rooms.push_back({l_position, l_size});
     }
 
