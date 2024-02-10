@@ -39,7 +39,7 @@ private:
 
     entt::registry m_registry;
 
-    Camera3D m_camera;
+    Camera3D m_camera{};
 
 
 };

@@ -9,9 +9,9 @@
 #include <entt/entity/registry.hpp>
 #include <entt/resource/cache.hpp>
 
-#include "raymath.h"
-#include "components/C_Model.h"
 #include "components/C_Position.h"
+#include "components/StaticModel.h"
+#include "raymath.h"
 
 void DungeonSystem::o_vInit(int nb_rooms, entt::registry& registry) {
     std::random_device dev;
@@ -71,7 +71,7 @@ void DungeonSystem::o_vInit(int nb_rooms, entt::registry& registry) {
                 std::cout << l_position.x << " | " << l_position.y << " | " << l_position.z << "\n";
 
                 entt::entity l_entity = registry.create();
-                registry.emplace<C_Model>(l_entity, l_model);
+                registry.emplace<StaticModel>(l_entity, l_model);
                 registry.emplace<C_Position>(l_entity, l_position);
             }
         }

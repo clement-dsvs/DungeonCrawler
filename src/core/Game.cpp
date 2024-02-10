@@ -10,9 +10,11 @@
 
 #include "systems/DungeonSystem.h"
 #include "systems/ModelSystem.h"
+#include <entt/resource/cache.hpp>
 
 Game::Game() {
     m_registry = entt::registry();
+    m_camera = Camera3D{};
 }
 
 void Game::o_vInit() {
@@ -23,14 +25,32 @@ void Game::o_vInit() {
     rlImGuiSetup(true);
     DisableCursor();
 
-    m_camera = Camera3D{};
     m_camera.position = {10, 10, 10};
     m_camera.target = {0, 0, 0};
     m_camera.up = {0, 1, 0};
     m_camera.fovy = 45.f;
     m_camera.projection = CAMERA_PERSPECTIVE;
 
-    DungeonSystem::o_vInit(10, m_registry);
+    using my_resource = Model;
+
+    struct my_loader final {
+        using result_type = std::shared_ptr<my_resource>;
+
+        result_type operator()(const char* filename) const {
+            // ...
+            return std::make_shared<my_resource>(LoadModel(filename));
+        }
+    };
+
+    using my_cache = entt::resource_cache<my_resource, my_loader>;
+
+    my_cache cache{};
+
+    auto ret = cache.load(1, R"(D:\code\C++\dungeon-crawler\assets\models\world\banner_blue.gltf.glb)");
+    entt::resource<my_resource> res = ret.first->second;
+
+    const entt::entity entity = m_registry.create();
+    m_registry.emplace<entt::resource<my_resource>>(entity, res);
 }
 
 void Game::o_vStart() {
@@ -54,7 +74,7 @@ void Game::o_vDraw() {
         // Draw stuff
 
         BeginMode3D(m_camera);
-        ModelSystem::Draw(m_registry);
+        // ModelSystem::Draw(m_registry);
         EndMode3D();
 
         //TODO: à mettre dans le système ImGui

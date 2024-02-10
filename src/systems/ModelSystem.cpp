@@ -5,14 +5,14 @@
 #include "ModelSystem.h"
 
 #include "components/C_Position.h"
-#include "components/C_Model.h"
+#include "components/StaticModel.h"
 
 void ModelSystem::Draw(entt::registry &registry) {
-    const auto view = registry.view<C_Model, C_Position>();
+    const auto view = registry.view<StaticModel, C_Position>();
 
     for (auto entity : view) {
         auto& position = registry.get<C_Position>(entity);
-        auto& model = registry.get<C_Model>(entity);
+        auto& model = registry.get<StaticModel>(entity);
 
         DrawModel(model, position, 1.f, WHITE);
     }
