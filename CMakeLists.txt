@@ -9,6 +9,7 @@ set(CMAKE_CXX_STANDARD 23)
 add_subdirectory(external/raylib)
 include(cmake/FindImgui.txt)
 add_subdirectory(external/entt)
+#add_subdirectory(external/bullet3)
 
 add_subdirectory(libs/rlImGui)
 

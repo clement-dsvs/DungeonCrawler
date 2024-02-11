@@ -7,3 +7,6 @@
 [submodule "third-party/imgui"]
 	path = external/imgui
 	url = https://github.com/ocornut/imgui.git
+[submodule "external/bullet3"]
+	path = external/bullet3
+	url = https://github.com/bulletphysics/bullet3.git
