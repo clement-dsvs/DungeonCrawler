@@ -9,7 +9,7 @@
 #include <entt/entity/registry.hpp>
 #include <entt/resource/cache.hpp>
 
-#include "components/C_Position.h"
+#include "components/Position.h"
 #include "components/StaticModel.h"
 #include "raymath.h"
 
@@ -63,7 +63,7 @@ void DungeonSystem::o_vInit(int nb_rooms, entt::registry& registry) {
         for (int x = 0; x < room.size.x; x ++) {
             for (int z = 0; z < room.size.z; z++) {
                 auto l_model = LoadModel("/Users/clement/code/cpp/DungeonCrawler/assets/models/world/floor_wood_large.gltf.glb");
-                C_Position l_position{};
+                Position l_position{};
                 l_position.x = room.position.x * 3 + (x * 4);
                 l_position.y = room.position.y;
                 l_position.z = room.position.z * 3 + (z * 4);
@@ -72,7 +72,7 @@ void DungeonSystem::o_vInit(int nb_rooms, entt::registry& registry) {
 
                 entt::entity l_entity = registry.create();
                 registry.emplace<StaticModel>(l_entity, l_model);
-                registry.emplace<C_Position>(l_entity, l_position);
+                registry.emplace<Position>(l_entity, l_position);
             }
         }
     }

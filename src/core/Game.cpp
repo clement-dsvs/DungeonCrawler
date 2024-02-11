@@ -8,9 +8,13 @@
 #include <raylib.h>
 #include <rlImGui/rlImGui.h>
 
+#include <entt/resource/cache.hpp>
+
+#include "components/Position.h"
 #include "systems/DungeonSystem.h"
 #include "systems/ModelSystem.h"
-#include <entt/resource/cache.hpp>
+
+#include "resources/StaticModelCache.h"
 
 Game::Game() {
     m_registry = entt::registry();
@@ -31,26 +35,19 @@ void Game::o_vInit() {
     m_camera.fovy = 45.f;
     m_camera.projection = CAMERA_PERSPECTIVE;
 
-    using my_resource = Model;
 
-    struct my_loader final {
-        using result_type = std::shared_ptr<my_resource>;
+    StaticModelCache cache{};
+    using namespace entt::literals;
 
-        result_type operator()(const char* filename) const {
-            // ...
-            return std::make_shared<my_resource>(LoadModel(filename));
-        }
-    };
-
-    using my_cache = entt::resource_cache<my_resource, my_loader>;
-
-    my_cache cache{};
-
-    auto ret = cache.load(1, R"(D:\code\C++\dungeon-crawler\assets\models\world\banner_blue.gltf.glb)");
-    entt::resource<my_resource> res = ret.first->second;
+    auto ret = cache.load(R"(D:\code\C++\dungeon-crawler\assets\models\world\banner_blue.gltf.glb)"_hs, R"(D:\code\C++\dungeon-crawler\assets\models\world\banner_blue.gltf.glb)");
+    entt::resource<StaticModel> res = ret.first->second;
 
     const entt::entity entity = m_registry.create();
-    m_registry.emplace<entt::resource<my_resource>>(entity, res);
+    m_registry.emplace<entt::resource<StaticModel>>(entity, res);
+    m_registry.emplace<Position>(entity, Position{0, 0, 0});
+
+    //auto ret2 = cache.load(R"(D:\code\C++\dungeon-crawler\assets\models\world\banner_blue.gltf.glb)");
+
 }
 
 void Game::o_vStart() {
@@ -74,7 +71,7 @@ void Game::o_vDraw() {
         // Draw stuff
 
         BeginMode3D(m_camera);
-        // ModelSystem::Draw(m_registry);
+        ModelSystem::Draw(m_registry);
         EndMode3D();
 
         //TODO: à mettre dans le système ImGui

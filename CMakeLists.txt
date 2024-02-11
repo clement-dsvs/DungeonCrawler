@@ -24,10 +24,13 @@ add_executable(${PROJECT_NAME} src/main.cpp
         src/systems/DungeonSystem.cpp
         src/systems/DungeonSystem.h
         src/components/StaticModel.h
-        src/components/C_Position.h
+        src/components/Position.h
         src/components/Size.h
         src/systems/ModelSystem.cpp
         src/systems/ModelSystem.h
+        src/core/resources/StaticModelCache.h
+        src/core/resources/StaticModelLoader.cpp
+        src/core/resources/StaticModelLoader.h
 )
 #set(raylib_VERBOSE 1)
 target_include_directories(${PROJECT_NAME} PRIVATE src libs/include third-party/imgui) #
