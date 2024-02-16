@@ -2,7 +2,7 @@
 // Created by Clément Desavis on 22/01/2024.
 //
 
-#include "ModelSystem.h"
+#include "RenderSystem.h"
 
 #include <entt/resource/resource.hpp>
 

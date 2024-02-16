@@ -1,5 +1,3 @@
-message("building imgui")
-
 set(IMGUI_SRC_DIR ${CMAKE_SOURCE_DIR}/external/imgui)
 
 include_directories(${IMGUI_SRC_DIR})

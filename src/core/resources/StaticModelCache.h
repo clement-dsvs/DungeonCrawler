@@ -9,6 +9,7 @@
 #include "StaticModelLoader.h"
 #include "components/StaticModel.h"
 
+
 using StaticModelCache = entt::resource_cache<StaticModel, StaticModelLoader>;
 
 #endif //STATICMODELCACHE_H
