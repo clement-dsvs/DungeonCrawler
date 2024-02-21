@@ -5,9 +5,9 @@
 #ifndef GAME_H
 #define GAME_H
 
-#include <entt/entity/registry.hpp>
+#include <raylib.h>
 
-#include "raylib.h"
+#include "Scene.h"
 
 
 class Game {
@@ -37,9 +37,9 @@ private:
      */
     void o_vDraw();
 
-    entt::registry m_registry;
 
-    Camera3D m_camera{};
+    //Camera3D m_camera{};
+    Scene m_scene;
 
 };
 

@@ -30,6 +30,7 @@ add_executable(${PROJECT_NAME} src/main.cpp
         src/core/globals.h
         src/core/Scene.cpp
         src/core/Scene.h
+        src/core/rlights.h
 )
 
 #set(raylib_VERBOSE 1)

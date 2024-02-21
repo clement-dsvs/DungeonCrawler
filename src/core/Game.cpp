@@ -4,24 +4,14 @@
 
 #include "Game.h"
 
-#include <entt/resource/cache.hpp>
 #include <raylib.h>
 #include <rlImGui/rlImGui.h>
-#include <stack>
 
-#include "Scene.h"
 #include "systems/DungeonSystem.h"
 #include "systems/RenderSystem.h"
 
 Game::Game()
 {
-    m_registry = entt::registry();
-    m_camera = Camera3D{};
-    std::stack<Scene> scene_stack;
-    for (auto& scene : scene_stack)
-    {
-        
-    }
 }
 
 void Game::o_vInit()
@@ -31,14 +21,10 @@ void Game::o_vInit()
     SetExitKey(KEY_NULL);
     SetTargetFPS(144);
     rlImGuiSetup(true);
-    DisableCursor();
-    HideCursor();
 
-    m_camera.position = {10, 10, 10};
-    m_camera.target = {0, 0, 0};
-    m_camera.up = {0, 1, 0};
-    m_camera.fovy = 45.f;
-    m_camera.projection = CAMERA_PERSPECTIVE;
+    m_scene.Init();
+    DungeonSystem::o_vInit(10, m_scene);
+
 }
 
 void Game::o_vStart()
@@ -53,17 +39,19 @@ void Game::o_vStart()
 void Game::o_vUpdate(float delta)
 {
     // Update systems
-    UpdateCamera(&m_camera, CAMERA_THIRD_PERSON);
+    UpdateCamera(&m_scene.getCamera(), CAMERA_THIRD_PERSON);
 }
 
 void Game::o_vDraw()
 {
+    DisableCursor();
     BeginDrawing();
     {
-        ClearBackground(RAYWHITE);
-        BeginMode3D(m_camera);
+        ClearBackground(BLACK);
+        BeginMode3D(m_scene.getCamera());
         {
-            ModelSystem::Draw(m_registry);
+            ModelSystem::Draw(m_scene);
+            DrawGrid(12, 1);
         }
         EndMode3D();
 

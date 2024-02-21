@@ -6,12 +6,13 @@
 #define DUNGEONSYSTEM_H
 #include <entt/entity/registry.hpp>
 
+#include "core/Scene.h"
 #include "raylib.h"
 #include "raymath.h"
 
 class DungeonSystem {
 public:
-    static void o_vInit(int nb_rooms, entt::registry& registry);
+    static void o_vInit(int nb_rooms, Scene& scene);
 
 private:
     struct Cube {

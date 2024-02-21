@@ -6,10 +6,12 @@
 #define MODELSYSTEM_H
 #include <entt/entity/registry.hpp>
 
+#include "core/Scene.h"
+
 
 class ModelSystem {
 
-public: static void Draw(entt::registry&);
+public: static void Draw(Scene& scene);
 
 };
 
